@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Fight Comp Updater</string>
+    <string name="loading">Searching for new fight compilations..</string>
+    <string name="done">No new fight compilations</string>
+    <string name="btn">Watch Most Recent</string>
+    <string name="about">About</string>
+    <string name="attribution">\"Hit\" by Ezra Keddell from The Noun Project, modified [color inverted, yellow added]</string>
+    <string name="liscense">Used under CC BY 3.0</string>
+    <string name="art">Attribution</string>
+    
+    
+</resources>
