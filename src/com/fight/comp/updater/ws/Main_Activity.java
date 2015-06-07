@@ -1,7 +1,5 @@
 package com.fight.comp.updater.ws;
 
-import com.fight.comp.updater.ws.R;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -55,7 +53,9 @@ public class Main_Activity extends Activity {
 		MediaPlayer mp = MediaPlayer.create(this, R.raw.bell);
 		mp.start();
 		Intent oldVideo = new Intent(Intent.ACTION_VIEW).setData(Uri
-				.parse("http://www.worldstarhiphop.com/videos/" + link));
+				.parse("http://www.worldstarhiphop.com/videos/e/16711680/"+link));
+				//.parse("http://m.worldstarhiphop.com/android/" + link));
+				//.parse("http://www.worldstarhiphop.com" + link));
 
 		startActivity(oldVideo);
 	}
@@ -97,7 +97,7 @@ public class Main_Activity extends Activity {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			textView.setText(R.string.done);
+			textView.setText(intent.getStringExtra("text"));
 			btn.setVisibility(View.VISIBLE);
 
 		}
@@ -110,7 +110,7 @@ public class Main_Activity extends Activity {
 		switch (item.getItemId()) {
 
 		case R.id.about:
-			Toast.makeText(this, "Fight Comp Updater v1.0", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Fight Comp Updater v1.3", Toast.LENGTH_SHORT).show();
 			return true;
 		case R.id.art:
 			startActivity(new Intent(this, info.class));

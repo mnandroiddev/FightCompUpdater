@@ -17,9 +17,15 @@ public class info extends Activity {
 		setContentView(R.layout.pop);
 	}
 	
-	public void liscense(View v){
+	public void license(View v){
 		Intent i = new Intent(Intent.ACTION_VIEW).setData(Uri
 				.parse("http://creativecommons.org/licenses/by/3.0/us/"));
+		startActivity(i);
+	}
+	
+	public void mit_license(View v){
+		Intent i = new Intent(Intent.ACTION_VIEW).setData(Uri
+				.parse("http://jsoup.org/license"));
 		startActivity(i);
 	}
 
