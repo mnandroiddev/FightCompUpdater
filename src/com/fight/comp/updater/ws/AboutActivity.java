@@ -8,25 +8,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
-public class info extends Activity {
+public class AboutActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-
 		setContentView(R.layout.pop);
 	}
-	
-	public void license(View v){
-		Intent i = new Intent(Intent.ACTION_VIEW).setData(Uri
+
+	public void license(View v) {
+		Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri
 				.parse("http://creativecommons.org/licenses/by/3.0/us/"));
-		startActivity(i);
+		startActivity(intent);
 	}
-	
-	public void mit_license(View v){
-		Intent i = new Intent(Intent.ACTION_VIEW).setData(Uri
-				.parse("http://jsoup.org/license"));
-		startActivity(i);
+
+	public void mit_license(View v) {
+		Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://jsoup.org/license"));
+		startActivity(intent);
 	}
 
 }

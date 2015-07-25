@@ -19,50 +19,51 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Main_Activity extends Activity {
+public class MainActivity extends Activity {
 
-	BroadcastReceiver receiver = new Radio();
 	TextView textView;
 	String link;
 	Button btn;
 	boolean created = false;
 	TextView attribution;
-	
+
+	BroadcastReceiver receiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			textView.setText(intent.getStringExtra("text"));
+			btn.setVisibility(View.VISIBLE);
+		}
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_fullscreen);
 
 		textView = (TextView) findViewById(R.id.textView);
 		btn = (Button) findViewById(R.id.btn);
-		SharedPreferences sharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		link = sharedPreferences.getString("link", "");
 
 		this.registerReceiver(receiver, new IntentFilter("allDoneChangeText"));
 
-		Intent newIntent = new Intent(this, Servant.class);
+		Intent newIntent = new Intent(this, ScrapingService.class);
 		newIntent.putExtra("visible", true);
 		startService(newIntent);
 
 	}
 
 	public void launch(View v) {
-		MediaPlayer mp = MediaPlayer.create(this, R.raw.bell);
-		mp.start();
 		Intent oldVideo = new Intent(Intent.ACTION_VIEW).setData(Uri
-				.parse("http://www.worldstarhiphop.com/videos/e/16711680/"+link));
-				//.parse("http://m.worldstarhiphop.com/android/" + link));
-				//.parse("http://www.worldstarhiphop.com" + link));
-
+				.parse("http://www.worldstarhiphop.com" + link));
 		startActivity(oldVideo);
 	}
 
 	@Override
 	protected void onDestroy() {
-		
+
 		super.onDestroy();
 	}
 
@@ -76,8 +77,7 @@ public class Main_Activity extends Activity {
 	protected void onResume() {
 		this.registerReceiver(receiver, new IntentFilter("allDoneChangeText"));
 
-		SharedPreferences sharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		link = sharedPreferences.getString("link", "");
 		if (created) {
 			textView.setText(R.string.done);
@@ -89,31 +89,20 @@ public class Main_Activity extends Activity {
 
 	@Override
 	protected void onStop() {
-	
+
 		super.onStop();
-	}
-
-	class Radio extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			textView.setText(intent.getStringExtra("text"));
-			btn.setVisibility(View.VISIBLE);
-
-		}
-
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
+
 		switch (item.getItemId()) {
 
 		case R.id.about:
 			Toast.makeText(this, "Fight Comp Updater v1.3", Toast.LENGTH_SHORT).show();
 			return true;
 		case R.id.art:
-			startActivity(new Intent(this, info.class));
+			startActivity(new Intent(this, AboutActivity.class));
 			return true;
 		}
 
@@ -122,16 +111,17 @@ public class Main_Activity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		
+
 		new MenuInflater(this).inflate(R.menu.menu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	@Override //Easter egg
+	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		
+
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			if (event.getEventTime() - event.getDownTime() > 30000) {//30 seconds
+			if (event.getEventTime() - event.getDownTime() > 45000) {// 45s
+
 				MediaPlayer mp = MediaPlayer.create(this, R.raw.bull);
 				mp.start();
 			}
